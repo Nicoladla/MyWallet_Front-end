@@ -13,6 +13,8 @@ export default function SignUp() {
     password: "",
     confirmPassword: "",
   });
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [isValidPassword, setIsValidPassword] = useState(true);
 
   function updateRegistrationData(e) {
     setRegistrationData({
@@ -23,6 +25,16 @@ export default function SignUp() {
 
   function registerUser(event) {
     event.preventDefault();
+
+    const isPasswordsSame =
+      registrationData.password === registrationData.confirmPassword;
+
+    if (!isPasswordsSame) {
+      setIsValidPassword(false);
+      return;
+    } else {
+      setIsValidPassword(true);
+    }
   }
 
   return (
@@ -64,6 +76,7 @@ export default function SignUp() {
           onChange={updateRegistrationData}
           required
         />
+        <p>{isValidPassword ? "" : "Senha de confirmação incorreta"}</p>
         <button type="submit">Cadastrar</button>
       </Form>
       <Link to="/">Já tem uma conta? Entre agora!</Link>
@@ -103,4 +116,10 @@ const Form = styled.form`
   width: 85%;
   display: flex;
   flex-direction: column;
+
+  p {
+    color: #f75252;
+    font-size: 15px;
+    margin: -9px 0 13px 2px;
+  }
 `;
