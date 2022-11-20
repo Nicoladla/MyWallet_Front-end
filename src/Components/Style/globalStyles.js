@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+import { BUTTON_COLLOR, HIGHLIGHT_WORDS } from "../../Constants/mainColors";
+
 const GlobalStyle = createGlobalStyle`
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -43,7 +45,41 @@ const GlobalStyle = createGlobalStyle`
     table {
         border-collapse: collapse;
         border-spacing: 0;
-}
+    }
+
+    *{
+        box-sizing: border-box;
+        font-family: 'Raleway';
+    }
+
+    body{
+        font-family: 'Raleway';
+    }
+
+    input{
+        background: #FFFFFF;
+        width: 100%;
+        height: 58px;
+        border: none;
+        border-radius: 5px;
+        margin-bottom: 13px;
+        padding-left: 10px;
+        outline: none;
+    }
+    input::placeholder{
+        font-size: 20px;
+    }
+
+    button{
+        background: ${BUTTON_COLLOR};
+        color: ${HIGHLIGHT_WORDS};
+        width: 100%;
+        height: 46px;
+        border-radius: 5px;
+        border: none;
+        font-weight: 700;
+        font-size: 20px;
+    }
 `;
 
 export default GlobalStyle;
