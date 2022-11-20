@@ -1,0 +1,3 @@
+const SCREEN_BACKGROUND_COLOR = "#9154be";
+
+const BUTTON_COLLOR = "#A328D6";
