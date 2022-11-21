@@ -32,7 +32,11 @@ export default function DoTransaction({ token }) {
     setIsDoTransaction(true);
 
     axios
-      .post(`${URL_API}/transaction`, transactionData, config)
+      .post(
+        `${URL_API}/transaction`,
+        { ...transactionData, value: Number(transactionData.value) },
+        config
+      )
       .then((res) => {
         setIsDoTransaction(false);
         navigate("/home-page");
