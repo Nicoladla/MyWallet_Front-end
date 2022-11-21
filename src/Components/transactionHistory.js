@@ -1,11 +1,27 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export default function TransactionHistory({ transactions }) {
   const haveTransactions = transactions.length !== 0;
   console.log(transactions);
 
-  if (haveTransactions) {
-  }
+  const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    if (haveTransactions) {
+      let newBalance = 0;
+
+      transactions.forEach((t) => {
+        if (t.type === "deposit") {
+          newBalance += t.value;
+        } else {
+          newBalance -= t.value;
+        }
+      });
+
+      setBalance(newBalance);
+    }
+  }, [transactions]);
 
   return (
     <BoxTransactionHistory haveTransactions={haveTransactions}>
@@ -15,20 +31,22 @@ export default function TransactionHistory({ transactions }) {
         <>
           <ul>
             {transactions.map((transaction) => (
-              <Transaction>
+              <Transaction key={transaction._id}>
                 <div>
                   <Date>{transaction.date}</Date>
                   <p>{transaction.description}</p>
                 </div>
                 <Value isPositive={transaction.type === "deposit"}>
-                  {transaction.value}
+                  {transaction.value.toFixed(2).replace(".", ",")}
                 </Value>
               </Transaction>
             ))}
           </ul>
           <footer>
             <Saldo>SALDO</Saldo>
-            <Value>{}</Value>
+            <Value isPositive={balance >= 0}>
+              {balance.toFixed(2).replace(".", ",")}
+            </Value>
           </footer>
         </>
       )}
