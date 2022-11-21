@@ -1,15 +1,44 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { HIGHLIGHT_WORDS, SCREEN_BACKGROUND } from "../Constants/mainColors";
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [isLogin, setIsLogin] = useState(false);
+
+  function updateLoginData(e) {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  }
+
+  function connectUser(event) {
+    event.preventDefault();
+  }
+
   return (
     <ScreenSingIn>
       <header>MyWallet</header>
-      <Form>
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Senha" minLength={6} required />
+      <Form onSubmit={connectUser}>
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          value={loginData.email}
+          onChange={updateLoginData}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          name="password"
+          minLength={6}
+          value={loginData.password}
+          onChange={updateLoginData}
+          required
+        />
         <button type="submit">Entrar</button>
       </Form>
       <Link to="sign-up">Primeira vez? Cadastre-se!</Link>
@@ -46,7 +75,7 @@ const ScreenSingIn = styled.div`
 `;
 
 const Form = styled.form`
-    width: 85%;
-    display: flex;
-    flex-direction: column;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
 `;
