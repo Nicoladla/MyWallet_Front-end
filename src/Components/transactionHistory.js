@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export default function TransactionHistory({ transactions }) {
   const haveTransactions = transactions.length !== 0;
-  console.log(transactions);
 
   const [balance, setBalance] = useState(0);
 

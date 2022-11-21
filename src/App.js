@@ -16,9 +16,9 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<SignIn setToken={setToken} />} />
-        <Route path="sign-up" element={<SignUp />} />
-        <Route path="home-page" element={<HomePage token={token} />} />
-        <Route path="transaction" element={<DoTransaction token={token} />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/home-page" element={<HomePage token={token} />} />
+        <Route path="/transaction/:type" element={<DoTransaction token={token} />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,15 +1,76 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { HIGHLIGHT_WORDS, SCREEN_BACKGROUND } from "../Constants/mainColors";
+import URL_API from "../Constants/urlAPI";
 
 export default function DoTransaction({ token }) {
+  const { type } = useParams();
+  const navigate = useNavigate();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const [transactionData, setTransactionData] = useState({
+    type,
+    value: "",
+    description: "",
+  });
+  const [isDoTransaction, setIsDoTransaction] = useState(false);
+
+  function updateTransactionData(e) {
+    setTransactionData({ ...transactionData, [e.target.name]: e.target.value });
+  }
+
+  function doTransaction(event) {
+    event.preventDefault();
+
+    setIsDoTransaction(true);
+
+    axios
+      .post(`${URL_API}/transaction`, transactionData, config)
+      .then((res) => {
+        setIsDoTransaction(false);
+        navigate("/home-page");
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+        setIsDoTransaction(false);
+      });
+  }
+
   return (
     <ScreenTransaction>
-      <header>Nova entrada</header>
-      <Form>
-        <input type="number" placeholder="Valor" min={1} required />
-        <input type="text" placeholder="Descrição" minLength={3} maxLength={20} required />
-        <button type="submit">Salvar entrada</button>
+      <header>Nova {type === "deposit" ? "entrada" : "saída"}</header>
+      <Form onSubmit={doTransaction}>
+        <input
+          type="number"
+          name="value"
+          placeholder="Valor"
+          min={1}
+          value={transactionData.value}
+          onChange={updateTransactionData}
+          disabled={isDoTransaction}
+          required
+        />
+        <input
+          type="text"
+          name="description"
+          placeholder="Descrição"
+          minLength={3}
+          maxLength={20}
+          value={transactionData.description}
+          onChange={updateTransactionData}
+          disabled={isDoTransaction}
+          required
+        />
+        <button type="submit" disabled={isDoTransaction}>
+          Salvar {type === "deposit" ? "entrada" : "saída"}
+        </button>
       </Form>
     </ScreenTransaction>
   );

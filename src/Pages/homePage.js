@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import TransactionHistory from "../Components/transactionHistory";
 import { SCREEN_BACKGROUND, HIGHLIGHT_WORDS } from "../Constants/mainColors";
 import URL_API from "../Constants/urlAPI";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function HomePage({ token }) {
   const navigate = useNavigate();
@@ -29,6 +29,13 @@ export default function HomePage({ token }) {
       .catch((error) => navigate("/"));
   }, []);
 
+  function signOut() {
+    axios
+      .delete(`${URL_API}/sign-out`, config)
+      .then((res) => navigate("/"))
+      .catch((error) => navigate("/"));
+  }
+
   if (transactions === null) {
     return <div>Carregando</div>;
   }
@@ -37,18 +44,21 @@ export default function HomePage({ token }) {
     <ScreenHomePage>
       <header>
         <h1> Olá, {transactions.userName}</h1>
-        <SignOutIcon size={26} fill="#ffffff" />
+        <div onClick={signOut}>
+          <SignOutIcon size={26} fill="#ffffff" />
+        </div>
       </header>
       <TransactionHistory transactions={transactions.transactions} />
       <Footer>
-        <button>
+        <button onClick={() => navigate("/transaction/deposit")}>
           <PlusCircleIcon size={20} />
           <p>
             Nova
             <br /> entrada
           </p>
         </button>
-        <button>
+
+        <button onClick={() => navigate("/transaction/withdraw")}>
           <NoEntryIcon size={20} />
           <p>
             Nova
