@@ -1,5 +1,74 @@
-import TransactionHistory from "../Components/transactionHistory"
+import styled from "styled-components";
+import {
+  SignOutIcon,
+  PlusCircleIcon,
+  NoEntryIcon,
+} from "@primer/octicons-react";
 
-export default function HomePage(){
-    return
+import TransactionHistory from "../Components/transactionHistory";
+import { SCREEN_BACKGROUND, HIGHLIGHT_WORDS } from "../Constants/mainColors";
+
+export default function HomePage({ token }) {
+  return (
+    <ScreenHomePage>
+      <header>
+        <h1> Olá, Boy</h1>
+        <SignOutIcon size={26} fill="#ffffff" />
+      </header>
+      <TransactionHistory />
+      <Footer>
+        <button>
+          <PlusCircleIcon size={20} />
+          <p>Nova<br/> entrada</p>
+        </button>
+        <button>
+          <NoEntryIcon size={20} />
+          <p>Nova<br/> saída</p>
+        </button>
+      </Footer>
+    </ScreenHomePage>
+  );
 }
+
+const ScreenHomePage = styled.div`
+  background-color: ${SCREEN_BACKGROUND};
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  header {
+    width: 85%;
+    margin: 25px 0 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h1 {
+    color: ${HIGHLIGHT_WORDS};
+    font-weight: 700;
+    font-size: 26px;
+  }
+`;
+
+const Footer = styled.footer`
+  width: 85%;
+  height: 18vh;
+  margin-bottom: 13px;
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    width: 48%;
+    height: 100%;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  p{
+    text-align: start;
+  }
+`;
