@@ -8,7 +8,7 @@ export default function DoTransaction({ token }) {
       <header>Nova entrada</header>
       <Form>
         <input type="number" placeholder="Valor" min={1} required />
-        <input type="text" placeholder="Descrição" minLength={3} required />
+        <input type="text" placeholder="Descrição" minLength={3} maxLength={20} required />
         <button type="submit">Salvar entrada</button>
       </Form>
     </ScreenTransaction>

@@ -4,26 +4,56 @@ import {
   PlusCircleIcon,
   NoEntryIcon,
 } from "@primer/octicons-react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 import TransactionHistory from "../Components/transactionHistory";
 import { SCREEN_BACKGROUND, HIGHLIGHT_WORDS } from "../Constants/mainColors";
+import URL_API from "../Constants/urlAPI";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage({ token }) {
+  const navigate = useNavigate();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const [transactions, setTransactions] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`${URL_API}/transaction`, config)
+      .then((res) => setTransactions(res.data))
+      .catch((error) => navigate("/"));
+  }, []);
+
+  if (transactions === null) {
+    return <div>Carregando</div>;
+  }
+
   return (
     <ScreenHomePage>
       <header>
-        <h1> Olá, Boy</h1>
+        <h1> Olá, {transactions.userName}</h1>
         <SignOutIcon size={26} fill="#ffffff" />
       </header>
-      <TransactionHistory />
+      <TransactionHistory transactions={transactions.transactions} />
       <Footer>
         <button>
           <PlusCircleIcon size={20} />
-          <p>Nova<br/> entrada</p>
+          <p>
+            Nova
+            <br /> entrada
+          </p>
         </button>
         <button>
           <NoEntryIcon size={20} />
-          <p>Nova<br/> saída</p>
+          <p>
+            Nova
+            <br /> saída
+          </p>
         </button>
       </Footer>
     </ScreenHomePage>
@@ -68,7 +98,7 @@ const Footer = styled.footer`
     flex-direction: column;
     justify-content: space-around;
   }
-  p{
+  p {
     text-align: start;
   }
 `;

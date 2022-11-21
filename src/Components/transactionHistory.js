@@ -1,21 +1,37 @@
 import styled from "styled-components";
 
-export default function TransactionHistory() {
+export default function TransactionHistory({ transactions }) {
+  const haveTransactions = transactions.length !== 0;
+  console.log(transactions);
+
+  if (haveTransactions) {
+  }
+
   return (
-    <BoxTransactionHistory>
-      <ul>
-        <Transaction>
-          <div>
-            <Date>24/11</Date>
-            <p>Almoço com mãe</p>
-          </div>
-          <Value>39,90</Value>
-        </Transaction>
-      </ul>
-      <footer>
-        <Saldo>SALDO</Saldo>
-        <Value>2000,90</Value>
-      </footer>
+    <BoxTransactionHistory haveTransactions={haveTransactions}>
+      {!haveTransactions ? (
+        <span>Não há registros de entrada ou saída</span>
+      ) : (
+        <>
+          <ul>
+            {transactions.map((transaction) => (
+              <Transaction>
+                <div>
+                  <Date>{transaction.date}</Date>
+                  <p>{transaction.description}</p>
+                </div>
+                <Value isPositive={transaction.type === "deposit"}>
+                  {transaction.value}
+                </Value>
+              </Transaction>
+            ))}
+          </ul>
+          <footer>
+            <Saldo>SALDO</Saldo>
+            <Value>{}</Value>
+          </footer>
+        </>
+      )}
     </BoxTransactionHistory>
   );
 }
@@ -29,13 +45,23 @@ const BoxTransactionHistory = styled.main`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: ${({ haveTransactions }) =>
+    !haveTransactions ? "center" : "space-between"};
 
   ul {
     width: 100%;
   }
 
+  span {
+    width: 70%;
+    color: #868686;
+    font-size: 20px;
+    text-align: center;
+  }
+
   footer {
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }
@@ -43,6 +69,7 @@ const BoxTransactionHistory = styled.main`
 
 const Transaction = styled.li`
   font-size: 16px;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -59,7 +86,7 @@ const Saldo = styled.p`
 
 const Value = styled.p`
   font-weight: 400;
-  color: red;
+  color: ${({ isPositive }) => (isPositive ? "#03AC00" : "#C70000")};
 `;
 const Date = styled.p`
   color: #c6c6c6;
