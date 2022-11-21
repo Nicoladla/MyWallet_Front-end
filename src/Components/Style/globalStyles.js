@@ -69,6 +69,9 @@ const GlobalStyle = createGlobalStyle`
     input::placeholder{
         font-size: 20px;
     }
+    input:disabled {
+        background-color: #f2f2f2;
+    }
 
     button{
         background: ${BUTTON_COLLOR};
@@ -79,6 +82,9 @@ const GlobalStyle = createGlobalStyle`
         border: none;
         font-weight: 700;
         font-size: 20px;
+    }
+    button:disabled{
+        opacity: 0.7;
     }
 `;
 

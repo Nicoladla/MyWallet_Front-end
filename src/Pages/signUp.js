@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { HIGHLIGHT_WORDS, SCREEN_BACKGROUND } from "../Constants/mainColors";
 import { useState } from "react";
+import URL_API from "../Constants/urlAPI";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -35,6 +37,24 @@ export default function SignUp() {
     } else {
       setIsValidPassword(true);
     }
+
+    setIsRegistering(true);
+
+    const newRegistrationDate = { ...registrationData };
+    delete newRegistrationDate.confirmPassword;
+
+    axios
+      .post(`${URL_API}/sign-up`, newRegistrationDate)
+
+      .then((res) => {
+        setIsRegistering(false);
+        navigate("/");
+      })
+
+      .catch((error) => {
+        setIsRegistering(false);
+        alert(error.response.data.message);
+      });
   }
 
   return (
@@ -48,6 +68,7 @@ export default function SignUp() {
           minLength={3}
           value={registrationData.name}
           onChange={updateRegistrationData}
+          disabled={isRegistering}
           required
         />
         <input
@@ -56,6 +77,7 @@ export default function SignUp() {
           placeholder="Email"
           value={registrationData.email}
           onChange={updateRegistrationData}
+          disabled={isRegistering}
           required
         />
         <input
@@ -65,6 +87,7 @@ export default function SignUp() {
           minLength={6}
           value={registrationData.password}
           onChange={updateRegistrationData}
+          disabled={isRegistering}
           required
         />
         <input
@@ -74,10 +97,14 @@ export default function SignUp() {
           minLength={6}
           value={registrationData.confirmPassword}
           onChange={updateRegistrationData}
+          disabled={isRegistering}
           required
         />
-        <p>{isValidPassword ? "" : "Senha de confirmação incorreta"}</p>
-        <button type="submit">Cadastrar</button>
+        {isValidPassword ? "" : <p>Senha de confirmação incorreta</p>}
+
+        <button type="submit" disabled={isRegistering}>
+          Cadastrar
+        </button>
       </Form>
       <Link to="/">Já tem uma conta? Entre agora!</Link>
     </ScreenSingUp>
