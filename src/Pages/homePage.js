@@ -6,11 +6,12 @@ import {
 } from "@primer/octicons-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import TransactionHistory from "../Components/transactionHistory";
 import { SCREEN_BACKGROUND, HIGHLIGHT_WORDS } from "../Constants/mainColors";
 import URL_API from "../Constants/urlAPI";
-import { Link, useNavigate } from "react-router-dom";
+import Loading from "../Components/loading";
 
 export default function HomePage({ token }) {
   const navigate = useNavigate();
@@ -33,11 +34,17 @@ export default function HomePage({ token }) {
     axios
       .delete(`${URL_API}/sign-out`, config)
       .then((res) => navigate("/"))
-      .catch((error) => navigate("/"));
+      .catch((error) => {
+        if (error.response.status === 401) {
+          navigate("/");
+          return;
+        }
+        alert(error.response.data);
+      });
   }
 
   if (transactions === null) {
-    return <div>Carregando</div>;
+    return <Loading />;
   }
 
   return (

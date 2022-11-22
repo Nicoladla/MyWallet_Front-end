@@ -42,8 +42,14 @@ export default function DoTransaction({ token }) {
         navigate("/home-page");
       })
       .catch((error) => {
-        alert(error.response.data.message);
         setIsDoTransaction(false);
+
+        if (error.response.status === 401) {
+          navigate("/");
+          return;
+        }
+
+        alert(error.response.data);
       });
   }
 
@@ -55,7 +61,6 @@ export default function DoTransaction({ token }) {
           type="number"
           name="value"
           placeholder="Valor"
-          min={1}
           value={transactionData.value}
           onChange={updateTransactionData}
           disabled={isDoTransaction}
