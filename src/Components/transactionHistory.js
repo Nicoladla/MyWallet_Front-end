@@ -62,6 +62,7 @@ const BoxTransactionHistory = styled.main`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  overflow: auto;
   align-items: center;
   justify-content: ${({ haveTransactions }) =>
     !haveTransactions ? "center" : "space-between"};
@@ -79,6 +80,7 @@ const BoxTransactionHistory = styled.main`
 
   footer {
     width: 100%;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
   }
