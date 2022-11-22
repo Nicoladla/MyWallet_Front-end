@@ -20,7 +20,7 @@ export default function TransactionHistory({ transactions }) {
 
       setBalance(newBalance);
     }
-  }, [transactions]);
+  }, [haveTransactions, transactions]);
 
   return (
     <BoxTransactionHistory haveTransactions={haveTransactions}>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -78,7 +79,20 @@ export default function DoTransaction({ token }) {
           required
         />
         <button type="submit" disabled={isDoTransaction}>
-          Salvar {type === "deposit" ? "entrada" : "saída"}
+          {isDoTransaction ? (
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="#ffffff"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            `Salvar ${type === "deposit" ? "entrada" : "saída"}`
+          )}
         </button>
       </Form>
     </ScreenTransaction>
@@ -107,4 +121,10 @@ const Form = styled.form`
   width: 85%;
   display: flex;
   flex-direction: column;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;

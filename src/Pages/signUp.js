@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 
 import { HIGHLIGHT_WORDS, SCREEN_BACKGROUND } from "../Constants/mainColors";
 import { useState } from "react";
@@ -103,7 +104,20 @@ export default function SignUp() {
         {isValidPassword ? "" : <p>Senha de confirmação incorreta</p>}
 
         <button type="submit" disabled={isRegistering}>
-          Cadastrar
+          {isRegistering ? (
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="#ffffff"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            "Cadastrar"
+          )}
         </button>
       </Form>
       <Link to="/">Já tem uma conta? Entre agora!</Link>
@@ -148,5 +162,11 @@ const Form = styled.form`
     color: #f75252;
     font-size: 15px;
     margin: -9px 0 13px 2px;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
