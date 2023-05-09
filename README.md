@@ -6,6 +6,6 @@ Esse app permite o usuário criar uma conta e logar na mesma, assim como, regist
 
 ### Confira um pequeno exemplo da usabilidade e visual da aplicação:
 
-<p align="center">
+<p align="start">
   <img width="200" src="src/assets/MyWallet-Animação.gif" alt="MyWallet-gif">
 </p>
