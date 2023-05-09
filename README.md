@@ -12,8 +12,13 @@ Esse app permite o usuário criar uma conta e logar na mesma, assim como, regist
   <img width="200" src="src/assets/MyWallet-Animação.gif" alt="MyWallet-gif">
 </p>
 
-* Você pode acessar essa aplicação nesse link: [https://mywallet-front-end-murex.vercel.app/](https://mywallet-front-end-murex.vercel.app/)
-* Você também pode acessar o repositório do back-end desse projeto, nesse link: [https://github.com/Nicoladla/MyWallet_Back-end](https://github.com/Nicoladla/MyWallet_Back-end)
+* Você pode acessar essa aplicação nesse link: 
+
+  [https://mywallet-front-end-murex.vercel.app/](https://mywallet-front-end-murex.vercel.app/)
+
+* Você também pode acessar o repositório do back-end desse projeto, nesse link: 
+
+  [https://github.com/Nicoladla/MyWallet_Back-end](https://github.com/Nicoladla/MyWallet_Back-end)
 
 ---
 
