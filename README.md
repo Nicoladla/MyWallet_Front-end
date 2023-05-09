@@ -24,7 +24,7 @@ Esse app permite o usuário criar uma conta e logar na mesma, assim como, regist
 
 ## Informações técnicas
 
-Esse é um projeto front-end desenvolvido com [React.js](https://pt-br.react.dev/), juntamente com bibliotecas como:
+Esse é um projeto front-end, pensado principalmente para o mobile, desenvolvido com [React.js](https://pt-br.react.dev/), juntamente com bibliotecas como:
 - react-router-dom;
 - styled-components;
 - axios;
